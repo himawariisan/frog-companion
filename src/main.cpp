@@ -3,6 +3,7 @@
 #include <Adafruit_SSD1306.h>
 #include <Arduino.h>
 #include "Frog.h"
+#include "sprites.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -17,6 +18,8 @@ Adafruit_SSD1306 display(
     OLED_RESET
 );
 
+
+
 void setup()
 {
     Serial.begin(115200);
@@ -26,7 +29,7 @@ void setup()
     }
 
     display.clearDisplay();
-      
+
     display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);  
 
@@ -38,7 +41,15 @@ void loop()
     display.clearDisplay();
 
     display.setCursor(0, 0);
-    display.println("OLED works!");
+
+    display.drawBitmap(
+      frog.getX(),
+      frog.getY(),
+      epd_bitmap_f_breathe_1,
+      50,
+      50,
+      SSD1306_WHITE
+    );
 
     display.display();
 
