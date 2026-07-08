@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include "Frog.h"
+
+Frog frog;
 
 void setup()
 {
@@ -7,6 +10,6 @@ void setup()
 
 void loop()
 {
-    Serial.println("Hello from PlatformIO!");
+    Serial.println(frog.getX());
     delay(1000);
 }
