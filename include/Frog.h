@@ -7,6 +7,7 @@ class Frog
 
         int getX();
         int getY();
+        int setX(int newX);
 
         void update();
         void think();

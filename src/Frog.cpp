@@ -16,6 +16,11 @@ int Frog::getY()
     return y;
 }
 
+int Frog::setX(int newX)
+{
+    x = newX;
+}
+
 void Frog::update()
 {
     // Update the frog's state
