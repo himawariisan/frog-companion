@@ -18,35 +18,6 @@ Adafruit_SSD1306 display(
     OLED_RESET
 );
 
-unsigned long lastFrameTime = 0;
-int currentFrame = 0;
-
-
-void drawFrame(const unsigned char* frame)
-{
-      display.drawBitmap(
-      frog.getX(),
-      frog.getY(),
-      frame,
-      50,
-      50,
-      SSD1306_WHITE
-    );
-}
-
-void drawAnimation()
-{
-  static const unsigned char* frames[] =
-  {
-    epd_bitmap_f_breathe_1,
-    epd_bitmap_f_breathe_2,
-    epd_bitmap_f_breathe_3,
-    epd_bitmap_f_breathe_2
-  };
-
-  drawFrame(frames[currentFrame]);
-}
-
 void setup()
 {
     Serial.begin(115200);
@@ -67,14 +38,8 @@ void loop()
 {
     display.clearDisplay();
 
-    if(millis() - lastFrameTime >= 400)
-    {
-        lastFrameTime = millis();
-        currentFrame++;
-        if(currentFrame > 3) currentFrame = 0;
-    }
-
-    drawAnimation();
+    frog.update();
+    frog.draw(display);
 
     display.display();
 }

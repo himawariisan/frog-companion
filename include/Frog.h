@@ -1,4 +1,6 @@
 #pragma once
+#include <Adafruit_SSD1306.h>
+
 
 class Frog 
 {
@@ -7,7 +9,9 @@ class Frog
 
         int getX();
         int getY();
-        int setX(int newX);
+        void setX(int newX);
+
+        void draw(Adafruit_SSD1306 &display);
 
         void update();
         void think();
@@ -15,4 +19,6 @@ class Frog
     private:
         int x;
         int y;
+        unsigned long lastFrameTime;
+        int currentFrame;
 };
