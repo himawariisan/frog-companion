@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Frog.h"
 #include "sprites.h"
+#include "WorldState.h"
 
 Frog::Frog()
 {
@@ -24,11 +25,6 @@ int Frog::getY()
     return y;
 }
 
-void Frog::setX(int newX)
-{
-    x = newX;
-}
-
 void Frog::draw(Adafruit_SSD1306 &display)
 {
     static const unsigned char* frames[] =
@@ -49,13 +45,19 @@ void Frog::draw(Adafruit_SSD1306 &display)
     );
 }
 
-void Frog::update()
+void Frog::update(WorldState &worldState)
 {
     if(millis() - lastFrameTime >= 400)
     {
         lastFrameTime = millis();
         currentFrame++;
         if(currentFrame > 3) currentFrame = 0;
+    }
+
+    if(worldState.isButton1Pressed())
+    {
+        worldState.setButton1Pressed(false);
+        think();
     }
 
     switch(state)

@@ -19,7 +19,7 @@ class Frog
 
         void draw(Adafruit_SSD1306 &display);
 
-        void update();
+        void update(WorldState &WorldState);
         void think();
         
     private:

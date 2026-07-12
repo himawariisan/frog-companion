@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include "Frog.h"
 #include "sprites.h"
+#include "WorldState.h"
 
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
@@ -12,6 +13,7 @@
 #define BUTTON_1 23
 
 Frog frog;
+WorldState worldState;
 
 Adafruit_SSD1306 display(
     SCREEN_WIDTH,
@@ -44,10 +46,14 @@ void loop()
 
     if (digitalRead(BUTTON_1) == LOW)
     {
-        frog.think();
+        worldState.setButton1Pressed(true);
+    }
+    else
+    {
+        worldState.setButton1Pressed(false);
     }
 
-    frog.update();
+    frog.update(worldState);
     frog.draw(display);
 
     display.display();
