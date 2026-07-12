@@ -9,6 +9,8 @@
 #define SCREEN_HEIGHT 64
 #define OLED_RESET -1
 
+#define BUTTON_1 23
+
 Frog frog;
 
 Adafruit_SSD1306 display(
@@ -31,12 +33,19 @@ void setup()
     display.setTextSize(1);
     display.setTextColor(SSD1306_WHITE);  
 
+    pinMode(BUTTON_1, INPUT_PULLUP);
+
     display.display();
 }
 
 void loop()
 {
     display.clearDisplay();
+
+    if (digitalRead(BUTTON_1) == LOW)
+    {
+        frog.think();
+    }
 
     frog.update();
     frog.draw(display);

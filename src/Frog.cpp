@@ -9,6 +9,9 @@ Frog::Frog()
 
     lastFrameTime = 0;
     currentFrame = 0;
+
+    state = Idle;
+    stateTimer = 0;
 }
 
 int Frog::getX()
@@ -54,9 +57,36 @@ void Frog::update()
         currentFrame++;
         if(currentFrame > 3) currentFrame = 0;
     }
+
+    switch(state)
+    {
+        case Idle:
+            break;
+
+        case Thinking:
+            if(millis() - stateTimer >= 3000)
+            {
+                state = Talking;
+                stateTimer = millis();
+            }
+            break;
+
+        case Talking:
+            if(millis() - stateTimer >= 10000)
+            {
+                x = IDLE_X;
+                state = Idle;
+            }
+            break;
+    }
 }
 
 void Frog::think()
 {
-    // Implement the frog's thinking logic
+    if(state != Idle)
+        return;
+    
+    state = Thinking;
+    x = THINKING_X;
+    stateTimer = millis();
 }
