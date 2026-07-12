@@ -1,6 +1,8 @@
 #pragma once
 #include <Adafruit_SSD1306.h>
+#include "ThoughtGenerator.h"
 
+class WorldState;
 
 enum FrogState
 {
@@ -19,7 +21,9 @@ class Frog
 
         void draw(Adafruit_SSD1306 &display);
 
-        void update(WorldState &WorldState);
+        void textBubble(Adafruit_SSD1306 &display);
+
+        void update(WorldState &worldState);
         void think();
         
     private:
@@ -31,6 +35,9 @@ class Frog
 
         FrogState state;
         unsigned long stateTimer;
+
+        ThoughtGenerator thoughtGenerator;
+        String currentThought;
 
         static const int IDLE_X = 39;
         static const int THINKING_X = 5;

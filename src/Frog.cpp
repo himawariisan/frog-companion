@@ -3,6 +3,7 @@
 #include "sprites.h"
 #include "WorldState.h"
 
+
 Frog::Frog()
 {
     x = 39;
@@ -43,6 +44,18 @@ void Frog::draw(Adafruit_SSD1306 &display)
         50,
         SSD1306_WHITE
     );
+
+    textBubble(display);
+}
+
+void Frog::textBubble(Adafruit_SSD1306 &display)
+{
+    if(state == Talking)
+    {
+        display.drawRoundRect(65, 5, 60, 50, 8, SSD1306_WHITE);
+        display.setCursor(60, 5);
+        display.println(currentThought);
+    }
 }
 
 void Frog::update(WorldState &worldState)
@@ -69,6 +82,7 @@ void Frog::update(WorldState &worldState)
             if(millis() - stateTimer >= 3000)
             {
                 state = Talking;
+                currentThought = thoughtGenerator.generateThought();
                 stateTimer = millis();
             }
             break;
